@@ -51,7 +51,7 @@ def run(yymm):
         clockTime = time()
         if clockTime - oldTime > CLOCK_TIME_TH:
             dt = datetime.fromtimestamp(t)
-            logger.info('handling %s h%02d m%02d' % (yymm, dt.hour, dt.minute))
+            logger.info('handling %s y%d m%02d h%02d m%02d' % (yymm, dt.year, dt.month, dt.hour, dt.minute))
             oldTime = clockTime
         assert t == minT
         vid, did, state = map(int, [minT_row[hid[cn]] for cn in ['vehicle-id', 'driver-id', 'state']])
