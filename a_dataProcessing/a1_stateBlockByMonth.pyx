@@ -11,7 +11,7 @@ logger = get_logger()
 
 log_postfixs = ['-normal.csv', '-outside.csv', '-special.csv', '-unknown.csv']
 MIN20 = 20 * 60
-CLOCK_TIME_TH = 0.5 * 60
+CLOCK_TIME_TH = 30 * 60
 
 
 def run(yymm):
