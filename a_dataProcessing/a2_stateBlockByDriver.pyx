@@ -1,12 +1,18 @@
 import __init__
 from init_project import *
 #
-from time import sleep
+from _utils.logger import get_logger
+#
+from time import time, sleep
+from datetime import datetime
 import pandas as pd
 import csv
 import os
 
+logger = get_logger()
+
 SLEEP_DURATION = 2
+CLOCK_TIME_TH = 20 * 60
 
 
 def run(processorID, num_workers=11):
@@ -19,12 +25,19 @@ def run(processorID, num_workers=11):
 
 
 def process_file(fn):
+    logger.info('handle files; %s' % fn)
     ifpath = opath.join(dpath['stateBlockByMonth'], fn)
+    oldTime = time()
     with open(ifpath, 'rb') as r_csvfile:
         reader = csv.reader(r_csvfile)
         header = reader.next()
         hid = {h: i for i, h in enumerate(header)}
         for row in reader:
+            beginTime = eval(row[hid['beginTime']])
+            clockTime = time()
+            if clockTime - oldTime > CLOCK_TIME_TH:
+                dt = datetime.fromtimestamp(beginTime)
+                logger.info('handling %s d%02d h%02d m%02d' % (fn, dt.day, dt.hour, dt.minute))
             did = int(row[hid['did']])
             ofpath = opath.join(dpath['stateBlockByDriver'], 'stateBlockByDriver-%d.csv' % did)
             lock_fpath = opath.join(dpath['stateBlockByDriver'], '%d.lock' % did)
