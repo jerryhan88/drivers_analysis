@@ -6,7 +6,7 @@ import pandas as pd
 import csv
 import os
 
-SLEEP_DURATION = 1
+SLEEP_DURATION = 2
 
 
 def run(processorID, num_workers=11):
@@ -31,12 +31,20 @@ def process_file(fn):
             if opath.exists(ofpath):
                 append_row(ofpath, lock_fpath, row)
             else:
-                f = open(lock_fpath, 'wt')
-                with open(ofpath, 'wt') as w_csvfile:
-                    writer = csv.writer(w_csvfile, lineterminator='\n')
-                    writer.writerow(header)
-                f.close()
-                os.remove(lock_fpath)
+                create_csv(ofpath, lock_fpath, header, row)
+
+
+def create_csv(ofpath, lock_fpath, header, row):
+    try:
+        f = open(lock_fpath, 'wt')
+        with open(ofpath, 'wt') as w_csvfile:
+            writer = csv.writer(w_csvfile, lineterminator='\n')
+            writer.writerow(header)
+            writer.writerow(row)
+        f.close()
+        os.remove(lock_fpath)
+    except OSError:
+        create_csv(ofpath, lock_fpath, header, row)
 
 
 def append_row(ofpath, lock_fpath, row):
