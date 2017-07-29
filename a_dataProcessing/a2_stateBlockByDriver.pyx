@@ -12,7 +12,7 @@ import os
 logger = get_logger()
 
 SLEEP_DURATION = 2
-CLOCK_TIME_TH = 20 * 60
+CLOCK_TIME_TH = 30 * 60
 
 
 def run(processorID, num_workers=11):
