@@ -38,6 +38,7 @@ def process_file(fn):
             if clockTime - oldTime > CLOCK_TIME_TH:
                 dt = datetime.fromtimestamp(beginTime)
                 logger.info('handling %s d%02d h%02d m%02d' % (fn, dt.day, dt.hour, dt.minute))
+                oldTime = clockTime
             did = int(row[hid['did']])
             ofpath = opath.join(dpath['stateBlockByDriver'], 'stateBlockByDriver-%d.csv' % did)
             lock_fpath = opath.join(dpath['stateBlockByDriver'], '%d.lock' % did)
