@@ -15,8 +15,6 @@
 #done
 
 
-
-
 for i in {0..10}; do
     python -c "from a3_chunkByDriver import run; run($i)" &
 done
