@@ -10,13 +10,13 @@
 #done
 
 
-for i in {0..10}; do
-    python -c "from a2_stateBlockByDriver import arrange_files; arrange_files($i)" &
-done
-
-
-
-
-#for i in {0..3}; do
-#    python -c "from a3_chunkByDriver import run; run($i, 4)" &
+#for i in {0..10}; do
+#    python -c "from a2_stateBlockByDriver import arrange_files; arrange_files($i)" &
 #done
+
+
+
+
+for i in {0..10}; do
+    python -c "from a3_chunkByDriver import run; run($i)" &
+done
