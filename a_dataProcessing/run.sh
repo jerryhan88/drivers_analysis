@@ -15,6 +15,10 @@
 #done
 
 
+#for i in {0..10}; do
+#    python -c "from a3_chunkByDriver import run; run($i)" &
+#done
+
 for i in {0..10}; do
-    python -c "from a3_chunkByDriver import run; run($i)" &
+    python -c "from a4_chunkHalfHourZone import run; run($i)" &
 done
